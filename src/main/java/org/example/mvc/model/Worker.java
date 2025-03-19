@@ -31,4 +31,8 @@ public abstract class Worker extends Person implements IWorker {
         return this.status == WorkerStatus.TRABAJANDO;
     }
 
+    public abstract void updateSpecificAttribute(String newValue);
+
+    public abstract String getSpecificAttribute();
+
 }

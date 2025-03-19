@@ -23,7 +23,15 @@ public class Designer extends Worker{
         return "Diseñador" + super.toString() + "\nEspecialidad: " + specialty;
     }
 
-    public void setSpecialty(String specialty) {
-        this.specialty = specialty;
+    @Override
+    public void updateSpecificAttribute(String newValue) {
+        this.specialty = newValue;
     }
+
+    @Override
+    public String getSpecificAttribute() {
+        return "Especialidad actual: " + this.specialty;
+    }
+
+
 }

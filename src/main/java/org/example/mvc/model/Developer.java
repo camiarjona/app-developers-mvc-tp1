@@ -19,17 +19,21 @@ public class Developer extends Worker{
         return name +  " se está tomando un descanso...";
     }
 
-    @Override
-    public void crear() {
-
-    }
 
     @Override
     public String toString() {
         return "Desarrollador" + super.toString()  + "\nLenguaje principal: " + mainLanguage;
     }
 
-    public void setMainLanguage(String mainLanguage) {
-        this.mainLanguage = mainLanguage;
+    @Override
+    public void updateSpecificAttribute(String newValue) {
+        this.mainLanguage = newValue;
+
     }
+
+    @Override
+    public String getSpecificAttribute() {
+        return "Lenguaje actual: " + this.mainLanguage;
+    }
+
 }

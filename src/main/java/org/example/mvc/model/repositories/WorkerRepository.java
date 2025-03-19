@@ -1,7 +1,8 @@
 package org.example.mvc.model.repositories;
 
-import org.example.mvc.exceptions.DuplicateWorkerExcepcion;
+import org.example.mvc.exceptions.DuplicateWorkerException;
 import org.example.mvc.exceptions.EmptyListException;
+import org.example.mvc.exceptions.ValidateDataException;
 import org.example.mvc.exceptions.WorkerNotFoundException;
 import org.example.mvc.model.Worker;
 
@@ -16,12 +17,12 @@ public class WorkerRepository {
         this.workers = new ArrayList<>();
     }
 
-    public void save(Worker worker) throws DuplicateWorkerExcepcion {
+    public void save(Worker worker) throws DuplicateWorkerException{
         if(!workers.contains(worker) && worker !=null) {
             workers.add(worker);
         }
         else{
-            throw new DuplicateWorkerExcepcion("El trabajador ya existe");
+            throw new DuplicateWorkerException("El trabajador ya existe");
         }
     }
 
@@ -35,7 +36,7 @@ public class WorkerRepository {
     public Worker findByDNI(Long dni) throws WorkerNotFoundException {
         Worker worker  = null;
         for (Worker value : workers) {
-            if (dni == value.getDni()) {
+            if (dni.equals(value.getDni())) {
                 worker = value;
             }
         }
@@ -48,11 +49,9 @@ public class WorkerRepository {
 
     public void delete(Long dni) throws WorkerNotFoundException {
         Worker worker = findByDNI(dni);
-
-        if(worker == null){
-            throw new WorkerNotFoundException("El trabajador ingresado no existe.");
-        }
         workers.remove(worker);
     }
+
+
 
 }
