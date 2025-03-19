@@ -43,16 +43,13 @@ public class WorkerView {
                     findAllView();
                     break;
                 case 5:
-                    //estado
-                    break;
-                case 6:
                     System.out.println("Saliendo...");
                     break;
                 default:
                     System.out.println("Opcion no valida. Intente nuevamente");
             }
 
-        }while(opcion != 6);
+        }while(opcion != 5);
 
         sc.close();
 
@@ -169,8 +166,7 @@ public class WorkerView {
         System.out.println("2. Eliminar trabajador por DNI");
         System.out.println("3. Modificar trabajador");
         System.out.println("4. Listar trabajadores");
-        System.out.println("5. Cambiar estado del trabajador");
-        System.out.println("6. Salir");
+        System.out.println("5. Salir");
         System.out.println("Seleccione una opcion: ");
     }
 
@@ -202,9 +198,6 @@ public class WorkerView {
             input = sc.nextLine().trim();
             if(input.isEmpty()){
                 System.out.println("Entrada invalida, intente nuevamente.");
-            }else if(!input.matches("^[A-Za-zÁÉÍÓÚáéíóúÑñ ]+$")){
-                System.out.println("Entrada invalida, intente nuevamente.");
-                input = "";
             }
         }while(input.isEmpty());
         return input;

@@ -8,12 +8,4 @@ public class DesignerController {
         return new Designer(name, surname, dni, specialty);
     }
 
-//    public String workingDesigner() {
-//        return designer.working();
-//    }
-//
-//    public String restingDesigner() {
-//        return designer.resting();
-//    }
-
 }

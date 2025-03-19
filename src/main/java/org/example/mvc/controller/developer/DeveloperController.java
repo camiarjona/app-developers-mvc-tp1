@@ -8,13 +8,4 @@ public class DeveloperController {
         return new Developer(name, surname, dni, mainLanguage);
     }
 
-//    public String workingDeveloper() {
-//        return developer.working();
-//    }
-//
-//    public String restingDeveloper() {
-//        return developer.resting();
-//    }
-
-
 }

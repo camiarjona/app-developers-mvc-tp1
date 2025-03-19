@@ -54,11 +54,11 @@ public class WorkerController {
         if(String.valueOf(worker.getDni()).length() != 8){
             throw new ValidateDataException("El dni debe tener 8 dígitos.");
         }
-        if(worker.getName()==null || worker.getName().trim().isEmpty()){
-            throw new ValidateDataException("El nombre no puede ser nulo o estar en blanco.");
+        if(worker.getName()==null || worker.getName().trim().isEmpty() || worker.getName().matches("^[A-Za-zÁÉÍÓÚáéíóúÑñ ]+$")){
+            throw new ValidateDataException("El nombre no puede contener caracteres especiales o estar en blanco.");
         }
         if(worker.getSurname()==null || worker.getSurname().trim().isEmpty()){
-            throw new ValidateDataException("El apellido no puede ser nulo o estar en blanco.");
+            throw new ValidateDataException("El apellido no puede contener caracteres especiales o estar en blanco.");
         }
 
     }
