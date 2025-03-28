@@ -1,7 +1,7 @@
 package org.example;
 
 import org.example.mvc.controller.worker.WorkerController;
-import org.example.mvc.exceptions.DuplicateWorkerException;
+import org.example.mvc.exceptions.DuplicateElementException;
 import org.example.mvc.model.Designer;
 import org.example.mvc.model.Developer;
 import org.example.mvc.model.repositories.WorkerRepository;
@@ -18,7 +18,7 @@ public class Main {
             repository.save(developer);
             repository.save(designer);
 
-        } catch (DuplicateWorkerException ex) {
+        } catch (DuplicateElementException ex) {
             System.out.println(ex.getMessage());
         }
 

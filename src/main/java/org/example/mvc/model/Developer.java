@@ -1,12 +1,14 @@
 package org.example.mvc.model;
 
-public class Developer extends Worker{
+public class Developer extends Worker {
 
     private String mainLanguage;
+    private Proyect proyect;
 
-    public Developer(String name, String surname, Long dni, String mainLanguage) {
-        super(name, surname, dni);
+    public Developer(String name, String surname, Long dni, Integer age, String mainLanguage, Proyect proyect) {
+        super(name, surname, dni, age);
         this.mainLanguage = mainLanguage;
+        this.proyect = proyect;
     }
 
     @Override
@@ -16,13 +18,13 @@ public class Developer extends Worker{
 
     @Override
     public String resting() {
-        return name +  " se está tomando un descanso...";
+        return name + " se está tomando un descanso...";
     }
 
 
     @Override
     public String toString() {
-        return "Desarrollador" + super.toString()  + "\nLenguaje principal: " + mainLanguage;
+        return "Desarrollador" + super.toString() + "\nLenguaje principal: " + mainLanguage;
     }
 
     @Override

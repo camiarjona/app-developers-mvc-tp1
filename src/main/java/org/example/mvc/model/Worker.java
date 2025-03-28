@@ -7,8 +7,8 @@ public abstract class Worker extends Person implements IWorker {
     protected static Integer ID_AUTOINCREMENT = 1;
     protected final Integer id;
 
-    public Worker(String name, String surname, Long dni) {
-        super(name, surname, dni);
+    public Worker(String name, String surname, Long dni, Integer age) {
+        super(name, surname, dni, age);
         this.id = ID_AUTOINCREMENT++;
     }
 

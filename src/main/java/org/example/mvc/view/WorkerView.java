@@ -1,12 +1,10 @@
 package org.example.mvc.view;
 
-import org.example.mvc.controller.designer.DesignerController;
-import org.example.mvc.controller.developer.DeveloperController;
 import org.example.mvc.controller.worker.WorkerController;
-import org.example.mvc.exceptions.DuplicateWorkerException;
+import org.example.mvc.exceptions.DuplicateElementException;
 import org.example.mvc.exceptions.EmptyListException;
 import org.example.mvc.exceptions.ValidateDataException;
-import org.example.mvc.exceptions.WorkerNotFoundException;
+import org.example.mvc.exceptions.ElementNotFoundException;
 import org.example.mvc.model.Worker;
 
 import java.util.Scanner;
@@ -24,12 +22,12 @@ public class WorkerView {
 
     public void printMenuView() {
         int opcion;
-        do{
+        do {
             printPrincipalMenu();
             opcion = readInt();
             sc.nextLine();
 
-            switch(opcion){
+            switch (opcion) {
                 case 1:
                     addWorkerView();
                     break;
@@ -49,14 +47,14 @@ public class WorkerView {
                     System.out.println("Opcion no valida. Intente nuevamente");
             }
 
-        }while(opcion != 5);
+        } while (opcion != 5);
 
         sc.close();
 
     }
 
     //metodos crud
-    private void addWorkerView(){
+    private void addWorkerView() {
         System.out.println("Ingrese el nombre del trabajador: ");
         String nombre = readString();
         System.out.println("Ingrese el apellido: ");
@@ -71,7 +69,7 @@ public class WorkerView {
 
         Worker worker = null;
 
-        switch(type){
+        switch (type) {
             case 1:
                 System.out.println("Ingrese el lenguaje principal del trabajador: ");
                 String mainLanguage = readString();
@@ -86,32 +84,32 @@ public class WorkerView {
                 System.out.println("Opcion no valida. Intente nuevamente");
                 break;
         }
-        try{
+        try {
             workerController.saveWorkerController(worker);
             System.out.println("Trabajador agregado correctamente.");
 
-        } catch (DuplicateWorkerException | ValidateDataException e) {
+        } catch (DuplicateElementException | ValidateDataException e) {
             System.out.println(e.getMessage());
         }
     }
 
-    private void deleteWorkerView(){
+    private void deleteWorkerView() {
         System.out.println("Ingrese el dni del trabajador: ");
         Long dni = readLong();
 
-        try{
+        try {
             workerController.deleteWorkerController(dni);
             System.out.println("Trabajador eliminado correctamente.");
-        } catch (WorkerNotFoundException e) {
+        } catch (ElementNotFoundException e) {
             System.out.println(e.getMessage());
         }
     }
 
-    private void updateWorkerView(){
+    private void updateWorkerView() {
         System.out.println("Ingrese el dni del trabajador: ");
         Long dni = readLong();
 
-        try{
+        try {
             Worker worker = workerController.findByDNIController(dni);
             System.out.println("\nTrabajador encontrado.");
 
@@ -119,7 +117,7 @@ public class WorkerView {
             int opcion = readInt();
             sc.nextLine();
 
-            switch(opcion){
+            switch (opcion) {
                 case 1:
                     System.out.println("Ingrese el nuevo nombre: ");
                     String newName = readString();
@@ -143,13 +141,13 @@ public class WorkerView {
                     break;
             }
             System.out.println("Trabajador modificado con exito.");
-        } catch (WorkerNotFoundException e) {
+        } catch (ElementNotFoundException e) {
             System.out.println(e.getMessage());
         }
     }
 
-    private void findAllView(){
-        try{
+    private void findAllView() {
+        try {
             workerController.findAllWorkerController().forEach(System.out::println);
         } catch (EmptyListException e) {
             System.out.println(e.getMessage());
@@ -194,12 +192,12 @@ public class WorkerView {
 
     private String readString() {
         String input;
-        do{
+        do {
             input = sc.nextLine().trim();
-            if(input.isEmpty()){
+            if (input.isEmpty()) {
                 System.out.println("Entrada invalida, intente nuevamente.");
             }
-        }while(input.isEmpty());
+        } while (input.isEmpty());
         return input;
     }
 

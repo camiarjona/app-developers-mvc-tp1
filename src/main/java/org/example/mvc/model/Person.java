@@ -6,14 +6,16 @@ public abstract class Person {
     protected String name;
     protected String surname;
     protected Long dni;
+    protected Integer age;
 
     public Person() {
     }
 
-    public Person(String name, String surname, Long dni) {
+    public Person(String name, String surname, Long dni, Integer age) {
         this.name = name;
         this.surname = surname;
         this.dni = dni;
+        this.age = age;
     }
 
     public String getName() {
@@ -34,6 +36,14 @@ public abstract class Person {
 
     public Long getDni() {
         return dni;
+    }
+
+    public Integer getAge() {
+        return age;
+    }
+
+    public void setAge(Integer age) {
+        this.age = age;
     }
 
     @Override
