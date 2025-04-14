@@ -1,32 +1,46 @@
 package org.example;
 
-import org.example.mvc.controller.worker.WorkerController;
-import org.example.mvc.exceptions.DuplicateElementException;
-import org.example.mvc.model.Designer;
-import org.example.mvc.model.Developer;
-import org.example.mvc.model.repositories.WorkerRepository;
-import org.example.mvc.view.WorkerView;
+import org.example.base.GeneralView;
+import org.example.designer.controller.DesignerController;
+import org.example.designer.model.DesignerRepository;
+import org.example.designer.view.DesignerView;
+import org.example.developer.controller.DeveloperController;
+import org.example.developer.model.DeveloperRepository;
+import org.example.developer.view.DeveloperView;
+import org.example.project.controller.ProjectController;
+import org.example.project.exceptions.ProjectException;
+import org.example.project.model.Project;
+import org.example.project.model.ProjectRepository;
+import org.example.project.view.ProjectView;
 
 public class Main {
     public static void main(String[] args) {
-        Developer developer = new Developer("Camila", "Arjona", 1234L, "Java");
-        Designer designer = new Designer("Nico", "Ros", 5678L, "Photoshop");
 
-        WorkerRepository repository = new WorkerRepository();
+//        Project project = new Project("Romulo", "App de citas");
+//        Project project1 = new Project("Remo", "App de pedidos");
+        ProjectRepository pr = new ProjectRepository();
+//        try{
+//            pr.save(project);
+//            pr.save(project1);
+//        } catch (ProjectException e) {
+//            System.out.println(e.getMessage());
+//        }
 
-        try {
-            repository.save(developer);
-            repository.save(designer);
+        ProjectController pc = new ProjectController(pr);
+        ProjectView pv = new ProjectView(pc);
 
-        } catch (DuplicateElementException ex) {
-            System.out.println(ex.getMessage());
-        }
 
-        WorkerController controller = new WorkerController(repository);
-        WorkerView view = new WorkerView(controller);
+        DeveloperRepository dr = new DeveloperRepository();
+        DeveloperController dc = new DeveloperController(dr);
+        DeveloperView dv = new DeveloperView(dc, pc);
 
-        view.printMenuView();
+        DesignerRepository dsr = new DesignerRepository();
+        DesignerController dsc = new DesignerController(dsr);
+        DesignerView dsv = new DesignerView(dsc, pc);
 
+        GeneralView gv = new GeneralView(dv, dsv, pv);
+
+        gv.generalMenu();
 
 
     }
