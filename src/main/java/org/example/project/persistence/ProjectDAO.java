@@ -1,6 +1,6 @@
 package org.example.project.persistence;
 
-import connection.DatabaseConnection;
+import org.example.connection.DatabaseConnection;
 import org.example.project.model.Project;
 
 import java.sql.*;

@@ -1,4 +1,4 @@
-package connection;
+package org.example.connection;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -6,9 +6,9 @@ import java.sql.SQLException;
 
 public class DatabaseConnection {
 
-    private final String URL = "jdbc:mysql://localhost:3306/worker_jdbc";
+    private final String URL = "jdbc:mysql://localhost:3306/workers_jdbc";
     private final String USER = "root";
-    private final String PASSWORD = "";
+    private final String PASSWORD = "1234";
 
     private static DatabaseConnection instance;
     private final Connection connection;
