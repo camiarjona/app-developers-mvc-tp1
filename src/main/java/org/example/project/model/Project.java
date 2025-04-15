@@ -4,14 +4,18 @@ import java.util.Objects;
 
 public class Project {
 
-    private static int ID_AUTOINCREMENT = 1;
     private int id;
     private String proyectName;
     private String description;
 
     public Project(String nameProyect, String description) {
-        this.id = ID_AUTOINCREMENT++;
         this.proyectName = nameProyect;
+        this.description = description;
+    }
+
+    public Project(int id, String proyectName, String description) {
+        this.id = id;
+        this.proyectName = proyectName;
         this.description = description;
     }
 

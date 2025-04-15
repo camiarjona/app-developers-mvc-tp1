@@ -13,12 +13,22 @@ import org.example.project.model.Project;
 import org.example.project.model.ProjectRepository;
 import org.example.project.view.ProjectView;
 
+import java.sql.SQLException;
+
 public class Main {
     public static void main(String[] args) {
 
 //        Project project = new Project("Romulo", "App de citas");
 //        Project project1 = new Project("Remo", "App de pedidos");
-        ProjectRepository pr = new ProjectRepository();
+        try {
+            ProjectRepository pr = new ProjectRepository();
+            ProjectController pc = new ProjectController(pr);
+            ProjectView pv = new ProjectView(pc);
+            pv.projectMenu();
+        }catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+
 //        try{
 //            pr.save(project);
 //            pr.save(project1);
@@ -26,21 +36,20 @@ public class Main {
 //            System.out.println(e.getMessage());
 //        }
 
-        ProjectController pc = new ProjectController(pr);
-        ProjectView pv = new ProjectView(pc);
 
 
-        DeveloperRepository dr = new DeveloperRepository();
-        DeveloperController dc = new DeveloperController(dr);
-        DeveloperView dv = new DeveloperView(dc, pc);
 
-        DesignerRepository dsr = new DesignerRepository();
-        DesignerController dsc = new DesignerController(dsr);
-        DesignerView dsv = new DesignerView(dsc, pc);
-
-        GeneralView gv = new GeneralView(dv, dsv, pv);
-
-        gv.generalMenu();
+//        DeveloperRepository dr = new DeveloperRepository();
+//        DeveloperController dc = new DeveloperController(dr);
+//        DeveloperView dv = new DeveloperView(dc, pc);
+//
+//        DesignerRepository dsr = new DesignerRepository();
+//        DesignerController dsc = new DesignerController(dsr);
+//        DesignerView dsv = new DesignerView(dsc, pc);
+//
+//        GeneralView gv = new GeneralView(dv, dsv, pv);
+//
+//        gv.generalMenu();
 
 
     }

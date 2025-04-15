@@ -6,6 +6,7 @@ import org.example.project.exceptions.ProjectException;
 import org.example.project.exceptions.ProjectNotFoundException;
 import org.example.project.model.Project;
 
+import java.sql.SQLException;
 import java.util.List;
 import java.util.Scanner;
 
@@ -65,7 +66,7 @@ public class ProjectView implements IValidateInput {
         try{
             proyectController.save(name, description);
             System.out.println("✅Proyecto agregado con éxito.");
-        } catch (ProjectException | ProjectNotFoundException e) {
+        } catch (ProjectException | ProjectNotFoundException | SQLException e) {
             System.out.println("⛔Error: " + e.getMessage());
         }
     }
@@ -76,7 +77,7 @@ public class ProjectView implements IValidateInput {
         try{
             proyectController.delete(id);
             System.out.println("✅Proyecto eliminado con éxito.");
-        } catch (ProjectNotFoundException e) {
+        } catch (ProjectNotFoundException | SQLException e) {
             System.out.println("⛔Error: " + e.getMessage());
         }
     }
@@ -106,7 +107,7 @@ public class ProjectView implements IValidateInput {
             System.out.println("✅Proyecto modificado con éxito.");
             System.out.println(project.toString());
 
-        } catch (ProjectNotFoundException e) {
+        } catch (ProjectNotFoundException | SQLException | ProjectException e) {
             System.out.println("⛔Error: " + e.getMessage());
         }
     }
