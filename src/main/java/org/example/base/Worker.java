@@ -6,13 +6,13 @@ public abstract class Worker {
 
     protected String name;
     protected String surname;
-    protected Long dni;
+    protected Integer dni;
     protected Integer age;
 
     public Worker() {
     }
 
-    public Worker(String name, String surname, Long dni, Integer age) {
+    public Worker(String name, String surname, Integer dni, Integer age) {
         this.name = name;
         this.surname = surname;
         this.dni = dni;
@@ -35,8 +35,12 @@ public abstract class Worker {
         this.surname = surname;
     }
 
-    public Long getDni() {
+    public Integer getDni() {
         return dni;
+    }
+
+    public void setDni(Integer dni) {
+        this.dni = dni;
     }
 
     public Integer getAge() {

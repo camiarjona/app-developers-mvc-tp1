@@ -7,6 +7,7 @@ import org.example.developer.model.Developer;
 import org.example.developer.model.DeveloperRepository;
 import org.example.project.model.Project;
 
+import java.sql.SQLException;
 import java.util.List;
 import java.util.Optional;
 
@@ -18,7 +19,7 @@ public class DeveloperController {
         this.developerRepository = developerRepository;
     }
 
-    public void save(String name, String surname, Long dni, Integer age, String mainLanguage, Project project) throws DeveloperException {
+    public void save(String name, String surname, Integer dni, Integer age, String mainLanguage, Project project) throws DeveloperException, SQLException {
         validateString(name, "El nombre no puede estar vacío.");
         validateString(surname, "El apellido no puede estar vacío.");
         validateString(mainLanguage, "El lenguaje principal no puede quedar vacío.");
@@ -31,11 +32,11 @@ public class DeveloperController {
 
     }
 
-    public Optional<Developer> findByDni(Long dni){
+    public Optional<Developer> findByDni(Integer dni){
         return developerRepository.findByDNI(dni);
     }
 
-    public void delete (Long dni) throws DeveloperNotFoundException {
+    public void delete (Integer dni) throws DeveloperNotFoundException, SQLException {
       developerRepository.delete(dni);
     }
 
@@ -45,7 +46,7 @@ public class DeveloperController {
         }
     }
 
-    public void validateDni(Long input, String message) throws DeveloperException {
+    public void validateDni(Integer input, String message) throws DeveloperException {
         if(input == null || input <= 0){
             throw new DeveloperException(message);
         }
@@ -57,27 +58,27 @@ public class DeveloperController {
         }
     }
 
-    public void updateNameDeveloper(String name, Developer developer){
-        developer.setName(name);
+    public void updateNameDeveloper(String name, Developer developer) throws SQLException {
+        developerRepository.updateName(name, developer);
     }
 
-   public void updateSurnameDeveloper(String surname, Developer developer){
-        developer.setSurname(surname);
+   public void updateSurnameDeveloper(String surname, Developer developer) throws SQLException {
+        developerRepository.updateSurname(developer, surname);
    }
 
-   public void updateAgeDeveloper(Integer age, Developer developer){
-        developer.setAge(age);
+   public void updateAgeDeveloper(Integer age, Developer developer) throws SQLException {
+        developerRepository.updateAge(developer, age);
    }
 
-   public void updateMainLanguageDeveloper(String mainLanguage, Developer developer){
-        developer.setMainLanguage(mainLanguage);
+   public void updateMainLanguageDeveloper(String mainLanguage, Developer developer) throws SQLException {
+        developerRepository.updateMainLanguage(developer, mainLanguage);
    }
 
-   public void updateProjectDeveloper(Project project, Developer developer){
-        developer.setProject(project);
+   public void updateProjectDeveloper(Project project, Developer developer) throws SQLException {
+        developerRepository.updateProject(project, developer);
    }
 
-    public Developer getByDni(Long dni) throws DeveloperNotFoundException {
+    public Developer getByDni(Integer dni) throws DeveloperNotFoundException {
         return developerRepository.getByDni(dni);
     }
 

@@ -10,6 +10,7 @@ import org.example.project.exceptions.ProjectException;
 import org.example.project.exceptions.ProjectNotFoundException;
 import org.example.project.model.Project;
 
+import java.sql.SQLException;
 import java.util.List;
 import java.util.Scanner;
 
@@ -75,7 +76,7 @@ public class DeveloperView implements IValidateInput {
         }
         String name = readString(sc, "\uD83D\uDD39 Ingrese el nombre del desarrollador: ");
         String surname = readString(sc, "\uD83D\uDD39 Ingrese el apellido del desarrollador: ");
-        Long dni = readLong(sc, "Ingrese el dni del desarrollador: ");
+        Integer dni = readInt(sc, "Ingrese el dni del desarrollador: ");
         Integer age = readInt(sc, "Ingrese el edad del desarrollador: ");
         sc.nextLine();
         String mainLanguage = readString(sc, "Ingrese el lenguaje principal del desarrollador: ");
@@ -86,24 +87,24 @@ public class DeveloperView implements IValidateInput {
             Project project = projectController.getById(id);
             developerController.save(name, surname, dni, age, mainLanguage, project);
             System.out.println("✅Desarrollador agregado con éxito.");
-        } catch (ProjectNotFoundException | DeveloperException e) {
+        } catch (ProjectNotFoundException | DeveloperException | SQLException e) {
             System.out.println("⛔Error: " + e.getMessage());
         }
     }
 
     private void deleteDeveloperView() {
-        Long dni = readLong(sc, "\uD83D\uDD39 Ingrese el dni del desarrollador: ");
+        Integer dni = readInt(sc, "\uD83D\uDD39 Ingrese el dni del desarrollador: ");
 
         try {
             developerController.delete(dni);
             System.out.println("✅Desarrollador eliminado con éxito.");
-        } catch (DeveloperNotFoundException e) {
+        } catch (DeveloperNotFoundException | SQLException e) {
             System.out.println("⛔Error: " + e.getMessage());
         }
     }
 
     private void updateDeveloperView() {
-        Long dni = readLong(sc, "\uD83D\uDD39 Ingrese el dni del desarrollador: ");
+        Integer dni = readInt(sc, "\uD83D\uDD39 Ingrese el dni del desarrollador: ");
         sc.nextLine();
 
         try {
@@ -144,7 +145,7 @@ public class DeveloperView implements IValidateInput {
             System.out.println("✅Desarrollador modificado con éxito.");
             System.out.println(developer.toString());
 
-        } catch (DeveloperNotFoundException e) {
+        } catch (DeveloperNotFoundException | SQLException e) {
             System.out.println("⛔Error: " + e.getMessage());
         }
     }

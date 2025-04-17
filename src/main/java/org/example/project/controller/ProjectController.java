@@ -1,5 +1,11 @@
 package org.example.project.controller;
 
+import org.example.designer.controller.DesignerController;
+import org.example.designer.exceptions.DesignerException;
+import org.example.designer.model.Designer;
+import org.example.developer.controller.DeveloperController;
+import org.example.developer.exceptions.DeveloperException;
+import org.example.developer.model.Developer;
 import org.example.project.exceptions.ProjectException;
 import org.example.project.exceptions.ProjectNotFoundException;
 import org.example.project.factory.ProjectFactory;
@@ -13,9 +19,13 @@ import java.util.Optional;
 public class ProjectController {
 
     private final ProjectRepository projectRepository;
+    private final DeveloperController developerController;
+    private final DesignerController designerController;
 
-    public ProjectController(ProjectRepository proyectRepository) {
+    public ProjectController(ProjectRepository proyectRepository, DeveloperController developerController, DesignerController designerController) {
         this.projectRepository = proyectRepository;
+        this.developerController = developerController;
+        this.designerController = designerController;
     }
 
     public void save(String name, String description) throws ProjectException, ProjectNotFoundException, SQLException {
@@ -31,7 +41,17 @@ public class ProjectController {
         return projectRepository.findById(id);
     }
 
-    public void delete (int id) throws ProjectNotFoundException, SQLException {
+    public void delete (int id) throws ProjectNotFoundException, SQLException, DeveloperException, DesignerException {
+        List<Developer> assignedDevs = getDevelopersAssignedToProject(id);
+        //List<Designer> assignedDes = getDesignersAssignedToProject(id);
+
+        if (!assignedDevs.isEmpty()) {
+            System.out.println("⚠️¡Advertencia!⚠️ Este proyecto tiene trabajadores asignados. Al eliminarlo, sus proyectos serán establecidos a NULL.");
+        }
+
+        assignedDevs.forEach(dev -> dev.setProject(null));
+        //assignedDes.forEach(des -> des.setProject(null));
+
         projectRepository.delete(id);
     }
 
@@ -57,4 +77,11 @@ public class ProjectController {
        return projectRepository.findAll();
     }
 
+    public List<Developer> getDevelopersAssignedToProject(int projectId) throws ProjectNotFoundException, DeveloperException {
+        return projectRepository.getDevelopersAssignedToProject(projectId, developerController.getAll());
+    }
+
+    public List<Designer> getDesignersAssignedToProject(int projectId) throws ProjectNotFoundException, DesignerException {
+        return projectRepository.getDesignersAssignedToProject(projectId, designerController.getAll());
+    }
 }

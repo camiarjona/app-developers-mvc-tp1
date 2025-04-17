@@ -1,18 +1,18 @@
 package org.example.project.persistence;
 
 import org.example.connection.DatabaseConnection;
+import org.example.project.exceptions.ProjectNotFoundException;
 import org.example.project.model.Project;
 
 import java.sql.*;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 public class ProjectDAO {
 
-    private Connection connection;
+    private static Connection connection;
 
     public ProjectDAO() throws SQLException {
-        this.connection = DatabaseConnection.getInstance().getConnection();
+        connection = DatabaseConnection.getInstance().getConnection();
     }
 
     public void add(Project project) throws SQLException {
@@ -39,7 +39,7 @@ public class ProjectDAO {
         String sql = "SELECT project_id, pr_name, pr_description FROM projects";
 
         try (PreparedStatement ps = connection.prepareStatement(sql);
-        ResultSet rs = ps.executeQuery()) {
+             ResultSet rs = ps.executeQuery()) {
 
             while (rs.next()) {
                 projects.add(new Project(
@@ -80,4 +80,14 @@ public class ProjectDAO {
             ps.executeUpdate();
         }
     }
+
+    public Map<Integer, Project> getProjectsMap() throws SQLException {
+        List<Project> projects = getProjects();
+        Map<Integer, Project> map = new HashMap<>();
+        for (Project project : projects) {
+            map.put(project.getId(), project);
+        }
+        return map;
+    }
+
 }

@@ -4,7 +4,7 @@ import org.example.developer.model.Developer;
 import org.example.project.model.Project;
 
 public class DeveloperFactory {
-    public static Developer createDeveloper(String name, String surname, Long dni, Integer age, String mainLanguage, Project proyect) {
+    public static Developer createDeveloper(String name, String surname, Integer dni, Integer age, String mainLanguage, Project proyect) {
         return new Developer(name, surname, dni, age, mainLanguage, proyect);
     }
 }

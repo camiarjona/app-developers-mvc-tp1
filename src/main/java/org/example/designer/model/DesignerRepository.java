@@ -31,13 +31,13 @@ public class DesignerRepository {
         return designers;
     }
 
-    public Optional<Designer> findByDNI(Long dni){
+    public Optional<Designer> findByDNI(Integer dni){
         return designers.stream()
                 .filter(designer -> designer.getDni().equals(dni))
                 .findFirst();
     }
 
-    public void delete(Long dni) throws DesignerNotFoundException {
+    public void delete(Integer dni) throws DesignerNotFoundException {
         Optional<Designer> op = findByDNI(dni);
         if (op.isPresent()) {
             designers.remove(op.get());
@@ -47,7 +47,7 @@ public class DesignerRepository {
         }
     }
 
-    public Designer getByDni(Long dni) throws DesignerNotFoundException {
+    public Designer getByDni(Integer dni) throws DesignerNotFoundException {
         Optional<Designer> op = findByDNI(dni);
         if (op.isPresent()) {
             return op.get();

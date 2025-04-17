@@ -18,39 +18,22 @@ import java.sql.SQLException;
 public class Main {
     public static void main(String[] args) {
 
-//        Project project = new Project("Romulo", "App de citas");
-//        Project project1 = new Project("Remo", "App de pedidos");
         try {
+            DeveloperRepository dr = new DeveloperRepository();
+            DeveloperController dc = new DeveloperController(dr);
+            DesignerRepository dsr = new DesignerRepository();
+            DesignerController dsc = new DesignerController(dsr);
             ProjectRepository pr = new ProjectRepository();
-            ProjectController pc = new ProjectController(pr);
+            ProjectController pc = new ProjectController(pr, dc, dsc);
             ProjectView pv = new ProjectView(pc);
-            pv.projectMenu();
-        }catch (SQLException e) {
+            DeveloperView dv = new DeveloperView(dc, pc);
+            DesignerView dsv = new DesignerView(dsc, pc);
+            GeneralView gv = new GeneralView(dv, dsv, pv);
+
+            gv.generalMenu();
+        } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
-
-//        try{
-//            pr.save(project);
-//            pr.save(project1);
-//        } catch (ProjectException e) {
-//            System.out.println(e.getMessage());
-//        }
-
-
-
-
-//        DeveloperRepository dr = new DeveloperRepository();
-//        DeveloperController dc = new DeveloperController(dr);
-//        DeveloperView dv = new DeveloperView(dc, pc);
-//
-//        DesignerRepository dsr = new DesignerRepository();
-//        DesignerController dsc = new DesignerController(dsr);
-//        DesignerView dsv = new DesignerView(dsc, pc);
-//
-//        GeneralView gv = new GeneralView(dv, dsv, pv);
-//
-//        gv.generalMenu();
-
 
     }
 

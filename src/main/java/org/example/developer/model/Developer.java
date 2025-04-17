@@ -8,7 +8,11 @@ public class Developer extends Worker {
     private String mainLanguage;
     private Project project;
 
-    public Developer(String name, String surname, Long dni, Integer age, String mainLanguage, Project project) {
+    public Developer() {
+        super();
+    }
+
+    public Developer(String name, String surname, Integer dni, Integer age, String mainLanguage, Project project) {
         super(name, surname, dni, age);
         this.mainLanguage = mainLanguage;
         this.project = project;
@@ -30,10 +34,11 @@ public class Developer extends Worker {
         this.project = project;
     }
 
+
     @Override
     public String toString() {
         return "Desarrollador" + super.toString() + "\nLenguaje principal: "
-                + mainLanguage + "\n" + project.toString();
+                + mainLanguage + "\n" + (project != null ? project.toString() : "Proyecto sin asignar");
     }
 
 

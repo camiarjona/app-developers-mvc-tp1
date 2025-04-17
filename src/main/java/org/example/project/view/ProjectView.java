@@ -1,6 +1,8 @@
 package org.example.project.view;
 
 import org.example.base.interfaces.IValidateInput;
+import org.example.designer.exceptions.DesignerException;
+import org.example.developer.exceptions.DeveloperException;
 import org.example.project.controller.ProjectController;
 import org.example.project.exceptions.ProjectException;
 import org.example.project.exceptions.ProjectNotFoundException;
@@ -77,7 +79,7 @@ public class ProjectView implements IValidateInput {
         try{
             proyectController.delete(id);
             System.out.println("✅Proyecto eliminado con éxito.");
-        } catch (ProjectNotFoundException | SQLException e) {
+        } catch (ProjectNotFoundException | SQLException | DeveloperException | DesignerException e) {
             System.out.println("⛔Error: " + e.getMessage());
         }
     }

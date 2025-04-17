@@ -1,5 +1,7 @@
 package org.example.project.model;
 
+import org.example.designer.model.Designer;
+import org.example.developer.model.Developer;
 import org.example.project.exceptions.ProjectException;
 import org.example.project.exceptions.ProjectNotFoundException;
 import org.example.project.persistence.ProjectDAO;
@@ -8,6 +10,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 public class ProjectRepository {
 
@@ -57,8 +60,7 @@ public class ProjectRepository {
         if (op.isPresent()) {
             projects.remove(op.get());
             dao.deleteProject(op.get());
-        }
-        else{
+        } else {
             throw new ProjectNotFoundException("El proyecto no se encuentra en la lista.");
         }
     }
@@ -67,8 +69,7 @@ public class ProjectRepository {
         Optional<Project> op = findById(id);
         if (op.isPresent()) {
             return op.get();
-        }
-        else {
+        } else {
             throw new ProjectNotFoundException("El proyecto solicitado no existe.");
         }
     }
@@ -81,6 +82,18 @@ public class ProjectRepository {
     public void updateDescription(String description, Project project) throws ProjectException, SQLException {
         project.setDescription(description);
         dao.updateDescription(project);
+    }
+
+    public List<Developer> getDevelopersAssignedToProject(int projectId, List<Developer> developers) {
+        return developers.stream()
+                .filter(developer -> developer.getProject().getId() == projectId)
+                .toList();
+    }
+
+    public List<Designer> getDesignersAssignedToProject(int projectId, List<Designer> designers) {
+        return designers.stream()
+                .filter(designer -> designer.getProject().getId() == projectId)
+                .toList();
     }
 
 }

@@ -18,7 +18,7 @@ public class DesignerController {
         this.designerRepository = designerRepository;
     }
 
-    public void save(String name, String surname, Long dni, Integer age, String specialty, Project project) throws DesignerException {
+    public void save(String name, String surname, Integer dni, Integer age, String specialty, Project project) throws DesignerException {
         validateString(name, "El nombre no puede estar vacío.");
         validateString(surname, "El apellido no puede estar vacío.");
         validateString(specialty, "La especialidad no puede quedar vacía.");
@@ -30,11 +30,11 @@ public class DesignerController {
         designerRepository.save(designer);
     }
 
-    public Optional<Designer> findByDni(Long dni){
+    public Optional<Designer> findByDni(Integer dni){
         return designerRepository.findByDNI(dni);
     }
 
-    public void delete (Long dni) throws DesignerNotFoundException {
+    public void delete (Integer dni) throws DesignerNotFoundException {
         designerRepository.delete(dni);
     }
 
@@ -44,7 +44,7 @@ public class DesignerController {
         }
     }
 
-    public void validateDni(Long input, String message) throws DesignerException {
+    public void validateDni(Integer input, String message) throws DesignerException {
         if(input == null || input <= 0){
             throw new DesignerException(message);
         }
@@ -76,7 +76,7 @@ public class DesignerController {
         desginer.setProject(project);
     }
 
-    public Designer getByDni(Long dni) throws DesignerNotFoundException {
+    public Designer getByDni(Integer dni) throws DesignerNotFoundException {
         return designerRepository.getByDni(dni);
     }
 

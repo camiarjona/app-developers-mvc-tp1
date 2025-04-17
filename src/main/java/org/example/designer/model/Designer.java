@@ -7,7 +7,7 @@ public class Designer extends Worker {
     private String specialty;
     private Project project;
 
-    public Designer(String name, String surname, Long dni, Integer age, String specialty, Project proyect) {
+    public Designer(String name, String surname, Integer dni, Integer age, String specialty, Project proyect) {
         super(name, surname, dni, age);
         this.specialty = specialty;
         this.project = proyect;

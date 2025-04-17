@@ -78,10 +78,10 @@ public class DesignerView implements IValidateInput {
 
         String name = readString(sc, "\uD83D\uDD39 Ingrese el nombre del diseñador: ");
         String surname = readString(sc, "\uD83D\uDD39 Ingrese el apellido del diseñador: ");
-        Long dni = readLong(sc, "Ingrese el dni del diseñador: ");
+        Integer dni = readInt(sc, "Ingrese el dni del diseñador: ");
         Integer age = readInt(sc, "Ingrese el edad del diseñador: ");
         String specialty = readString(sc, "Ingrese la especialidad del diseñador: ");
-        Integer id = readInt(sc, "Ingrese el id del proyecto a asignar: ");
+        int id = readInt(sc, "Ingrese el id del proyecto a asignar: ");
 
         try {
             Project project = projectController.getById(id);
@@ -93,7 +93,7 @@ public class DesignerView implements IValidateInput {
     }
 
     private void deleteDesignerView() {
-        Long dni = readLong(sc, "\uD83D\uDD39 Ingrese el dni del diseñador: ");
+        Integer dni = readInt(sc, "\uD83D\uDD39 Ingrese el dni del diseñador: ");
 
         try {
             designerController.delete(dni);
@@ -104,7 +104,7 @@ public class DesignerView implements IValidateInput {
     }
 
     private void updateDesignerView() {
-        Long dni = readLong(sc, "\uD83D\uDD39 Ingrese el dni del diseñador: ");
+        Integer dni = readInt(sc, "\uD83D\uDD39 Ingrese el dni del diseñador: ");
         sc.nextLine();
 
         try {
