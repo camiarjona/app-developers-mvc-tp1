@@ -86,13 +86,13 @@ public class ProjectRepository {
 
     public List<Developer> getDevelopersAssignedToProject(int projectId, List<Developer> developers) {
         return developers.stream()
-                .filter(developer -> developer.getProject().getId() == projectId)
+                .filter(developer -> developer.getProject() != null && developer.getProject().getId() == projectId)
                 .toList();
     }
 
     public List<Designer> getDesignersAssignedToProject(int projectId, List<Designer> designers) {
         return designers.stream()
-                .filter(designer -> designer.getProject().getId() == projectId)
+                .filter(designer -> designer.getProject() != null && designer.getProject().getId() == projectId)
                 .toList();
     }
 

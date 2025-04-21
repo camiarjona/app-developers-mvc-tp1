@@ -41,16 +41,16 @@ public class ProjectController {
         return projectRepository.findById(id);
     }
 
-    public void delete (int id) throws ProjectNotFoundException, SQLException, DeveloperException, DesignerException {
+    public void delete (int id) throws ProjectNotFoundException, SQLException, DesignerException, DeveloperException {
         List<Developer> assignedDevs = getDevelopersAssignedToProject(id);
-        //List<Designer> assignedDes = getDesignersAssignedToProject(id);
+        List<Designer> assignedDes = getDesignersAssignedToProject(id);
 
         if (!assignedDevs.isEmpty()) {
             System.out.println("⚠️¡Advertencia!⚠️ Este proyecto tiene trabajadores asignados. Al eliminarlo, sus proyectos serán establecidos a NULL.");
         }
 
         assignedDevs.forEach(dev -> dev.setProject(null));
-        //assignedDes.forEach(des -> des.setProject(null));
+        assignedDes.forEach(des -> des.setProject(null));
 
         projectRepository.delete(id);
     }
@@ -77,11 +77,11 @@ public class ProjectController {
        return projectRepository.findAll();
     }
 
-    public List<Developer> getDevelopersAssignedToProject(int projectId) throws ProjectNotFoundException, DeveloperException {
+    public List<Developer> getDevelopersAssignedToProject(int projectId) throws  DeveloperException {
         return projectRepository.getDevelopersAssignedToProject(projectId, developerController.getAll());
     }
 
-    public List<Designer> getDesignersAssignedToProject(int projectId) throws ProjectNotFoundException, DesignerException {
+    public List<Designer> getDesignersAssignedToProject(int projectId) throws DesignerException {
         return projectRepository.getDesignersAssignedToProject(projectId, designerController.getAll());
     }
 }

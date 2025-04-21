@@ -82,7 +82,7 @@ public class DeveloperController {
         return developerRepository.getByDni(dni);
     }
 
-    public List<Developer> getAll() throws DeveloperException {
+    public List<Developer> getAll() {
         return developerRepository.findAll();
     }
 }

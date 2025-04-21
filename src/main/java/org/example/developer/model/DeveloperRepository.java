@@ -40,10 +40,7 @@ public class DeveloperRepository {
         }
     }
 
-    public List<Developer> findAll() throws DeveloperException {
-        if (developers.isEmpty()) {
-            throw new DeveloperException("La lista esta vacía");
-        }
+    public List<Developer> findAll() {
         return developers;
     }
 
@@ -83,8 +80,8 @@ public class DeveloperRepository {
     }
 
     public void updateAge(Developer dev, Integer age) throws SQLException {
-       dev.setAge(age);
-       dao.updateAge(dev);
+        dev.setAge(age);
+        dao.updateAge(dev);
     }
 
     public void updateMainLanguage(Developer dev, String mainLanguage) throws SQLException {

@@ -2,7 +2,6 @@ package org.example.developer.persistence;
 
 import org.example.connection.DatabaseConnection;
 import org.example.developer.model.Developer;
-import org.example.project.exceptions.ProjectNotFoundException;
 import org.example.project.model.Project;
 import org.example.project.persistence.ProjectDAO;
 
@@ -28,7 +27,12 @@ public class DeveloperDAO {
             ps.setString(3, developer.getSurname());
             ps.setInt(4, developer.getAge());
             ps.setString(5, developer.getMainLanguage());
-            ps.setInt(6, project.getId());
+
+            if (developer.getProject() != null) {
+                ps.setInt(6, developer.getProject().getId());
+            } else {
+                ps.setNull(6, Types.INTEGER);
+            }
 
             ps.executeUpdate();
         }

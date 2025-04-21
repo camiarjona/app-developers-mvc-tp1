@@ -7,6 +7,10 @@ public class Designer extends Worker {
     private String specialty;
     private Project project;
 
+    public Designer() {
+        super();
+    }
+
     public Designer(String name, String surname, Integer dni, Integer age, String specialty, Project proyect) {
         super(name, surname, dni, age);
         this.specialty = specialty;
@@ -32,9 +36,8 @@ public class Designer extends Worker {
     @Override
     public String toString() {
         return "Diseñador" + super.toString() + "\nEspecialidad: " + specialty
-                + "\n" + project.toString();
+                + "\n" + (project != null ? project.toString() : "Proyecto sin asignar");
     }
-
 
 
 }

@@ -67,13 +67,12 @@ public class DeveloperView implements IValidateInput {
     }
 
     private void addDeveloperView() {
-        try{
+        try {
             projectController.getAll();
-
         } catch (ProjectException e) {
-            System.out.println("⛔Error: " + e.getMessage());
-            return;
+            System.out.println("⚠️Advertencia⚠️: NO hay proyectos disponibles en este momento.");
         }
+
         String name = readString(sc, "\uD83D\uDD39 Ingrese el nombre del desarrollador: ");
         String surname = readString(sc, "\uD83D\uDD39 Ingrese el apellido del desarrollador: ");
         Integer dni = readInt(sc, "Ingrese el dni del desarrollador: ");
@@ -82,12 +81,20 @@ public class DeveloperView implements IValidateInput {
         String mainLanguage = readString(sc, "Ingrese el lenguaje principal del desarrollador: ");
         int id = readInt(sc, "Ingrese el id del proyecto a asignar: ");
         sc.nextLine();
+        Project project = null;
+
+        if (id != 0) {
+            try {
+                project = projectController.getById(id);
+            } catch (ProjectNotFoundException e) {
+                System.out.println("⛔Error: " + e.getMessage());
+            }
+        }
 
         try {
-            Project project = projectController.getById(id);
             developerController.save(name, surname, dni, age, mainLanguage, project);
             System.out.println("✅Desarrollador agregado con éxito.");
-        } catch (ProjectNotFoundException | DeveloperException | SQLException e) {
+        } catch (SQLException | DeveloperException e) {
             System.out.println("⛔Error: " + e.getMessage());
         }
     }
@@ -160,11 +167,14 @@ public class DeveloperView implements IValidateInput {
     }
 
     private void getAllView() {
-        try {
-            List<Developer> lista = developerController.getAll();
-            lista.forEach(System.out::println);
-        } catch (DeveloperException e) {
-            System.out.println("⛔Error: " + e.getMessage());
+
+        List<Developer> allDesigners = developerController.getAll();
+
+        if (allDesigners.isEmpty()) {
+            System.out.println("🚫 La lista de diseñadores está vacía.");
+        } else {
+            allDesigners.forEach(System.out::println);
         }
+
     }
 }

@@ -7,6 +7,7 @@ import org.example.designer.model.Designer;
 import org.example.designer.model.DesignerRepository;
 import org.example.project.model.Project;
 
+import java.sql.SQLException;
 import java.util.List;
 import java.util.Optional;
 
@@ -18,7 +19,7 @@ public class DesignerController {
         this.designerRepository = designerRepository;
     }
 
-    public void save(String name, String surname, Integer dni, Integer age, String specialty, Project project) throws DesignerException {
+    public void save(String name, String surname, Integer dni, Integer age, String specialty, Project project) throws DesignerException, SQLException {
         validateString(name, "El nombre no puede estar vacío.");
         validateString(surname, "El apellido no puede estar vacío.");
         validateString(specialty, "La especialidad no puede quedar vacía.");
@@ -34,7 +35,7 @@ public class DesignerController {
         return designerRepository.findByDNI(dni);
     }
 
-    public void delete (Integer dni) throws DesignerNotFoundException {
+    public void delete (Integer dni) throws DesignerNotFoundException, SQLException {
         designerRepository.delete(dni);
     }
 
@@ -80,7 +81,7 @@ public class DesignerController {
         return designerRepository.getByDni(dni);
     }
 
-    public List<Designer> getAll() throws DesignerException {
+    public List<Designer> getAll() {
         return designerRepository.findAll();
     }
 }

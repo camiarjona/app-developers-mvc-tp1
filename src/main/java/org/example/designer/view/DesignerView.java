@@ -10,6 +10,7 @@ import org.example.project.exceptions.ProjectException;
 import org.example.project.exceptions.ProjectNotFoundException;
 import org.example.project.model.Project;
 
+import java.sql.SQLException;
 import java.util.List;
 import java.util.Scanner;
 
@@ -67,29 +68,38 @@ public class DesignerView implements IValidateInput {
 
     private void addDesignerView() {
 
-        try{
-           projectController.getAll();
+        try {
+            projectController.getAll();
 
         } catch (ProjectException e) {
-            System.out.println("⛔Error: " + e.getMessage());
-            return;
+            System.out.println("⚠️Advertencia⚠️: NO hay proyectos disponibles en este momento.");
         }
-
 
         String name = readString(sc, "\uD83D\uDD39 Ingrese el nombre del diseñador: ");
         String surname = readString(sc, "\uD83D\uDD39 Ingrese el apellido del diseñador: ");
         Integer dni = readInt(sc, "Ingrese el dni del diseñador: ");
         Integer age = readInt(sc, "Ingrese el edad del diseñador: ");
+        sc.nextLine();
         String specialty = readString(sc, "Ingrese la especialidad del diseñador: ");
-        int id = readInt(sc, "Ingrese el id del proyecto a asignar: ");
+        int id = readInt(sc, "Ingrese el id del proyecto a asignar (o presione 0 para ninguno): ");
+        sc.nextLine();
+        Project project = null;
+
+        if (id != 0) {
+            try {
+                project = projectController.getById(id);
+            } catch (ProjectNotFoundException e) {
+                System.out.println("⛔Error: " + e.getMessage());
+            }
+        }
 
         try {
-            Project project = projectController.getById(id);
             designerController.save(name, surname, dni, age, specialty, project);
             System.out.println("✅Diseñador agregado con éxito.");
-        } catch (ProjectNotFoundException | DesignerException e) {
+        } catch (DesignerException | SQLException e) {
             System.out.println("⛔Error: " + e.getMessage());
         }
+
     }
 
     private void deleteDesignerView() {
@@ -98,7 +108,7 @@ public class DesignerView implements IValidateInput {
         try {
             designerController.delete(dni);
             System.out.println("✅Diseñador eliminado con éxito.");
-        } catch (DesignerNotFoundException e) {
+        } catch (DesignerNotFoundException | SQLException e) {
             System.out.println("⛔Error: " + e.getMessage());
         }
     }
@@ -160,11 +170,14 @@ public class DesignerView implements IValidateInput {
     }
 
     private void getAllView() {
-        try {
-            List<Designer> lista = designerController.getAll();
-            lista.forEach(System.out::println);
-        } catch (DesignerException e) {
-            System.out.println("⛔Error: " + e.getMessage());
+
+        List<Designer> allDesigners = designerController.getAll();
+
+        if (allDesigners.isEmpty()) {
+            System.out.println("🚫 La lista de diseñadores está vacía.");
+        } else {
+            allDesigners.forEach(System.out::println);
         }
+
     }
 }
