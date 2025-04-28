@@ -79,7 +79,7 @@ public class DeveloperView implements IValidateInput {
         Integer age = readInt(sc, "Ingrese el edad del desarrollador: ");
         sc.nextLine();
         String mainLanguage = readString(sc, "Ingrese el lenguaje principal del desarrollador: ");
-        int id = readInt(sc, "Ingrese el id del proyecto a asignar: ");
+        int id = readInt(sc, "Ingrese el id del proyecto a asignar (o presione 0 para ninguno): ");
         sc.nextLine();
         Project project = null;
 
